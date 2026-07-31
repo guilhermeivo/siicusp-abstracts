@@ -1,0 +1,199 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2026 Guilherme Ivo
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+% https://www.latex-project.org/lppl/
+%
+% and version 1.3c or later is part of all distributions of
+% LaTeX version 2008-05-04 or later.
+%
+% \fi
+%
+% \iffalse
+%
+%<driver>\ProvidesFile{siicusp.dtx}
+%
+%<class>\NeedsTeXFormat{LaTeX2e}
+%<class>\ProvidesPackage{siicusp}
+%<class>    [2026/07/30 v1.0 SIICUSP]
+%
+%<*driver>
+    \listfiles
+    \documentclass{ltxdoc}
+
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[brazilian]{babel}
+
+    \usepackage{hypdoc}
+
+    \EnableCrossrefs
+    \RecordChanges
+
+    \begin{document}
+        \DocInput{siicusp.dtx}
+    \end{document}
+%</driver>
+% \fi
+%
+% \iffalse
+%
+%<*package>
+
+%</package>
+%
+% \fi
+%
+% \changes{v1.0}{2026/07/30}{Versão inicial}
+% 
+% \PrintChanges
+%
+% \begin{macro}{geometry (package)}
+%   Configurações de margem do documento em conformidade com o modelo fornecido pelo SIICUSP.
+%    \begin{macrocode}
+\RequirePackage{geometry}
+
+\geometry{
+    a4paper,
+    inner=2.6cm,
+    outer=2.6cm,
+    top=0cm,
+    bottom=8.4cm,
+    bindingoffset=0cm
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%<*package>
+\RequirePackage{geometry}
+\RequirePackage{iftex}
+\RequirePackage{graphicx}
+\RequirePackage[brazil]{babel}
+%</package>
+% \fi
+%
+% \begin{macro}{geometry (package)}
+%   Configurações de margem do documento em conformidade com o modelo fornecido pelo SIICUSP.
+%    \begin{macrocode}
+\ifPDFTeX
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage[utf8]{inputenc}
+    \RequirePackage{lmodern} % ou helvet, newtxtext, etc.
+
+    \renewcommand{\familydefault}{\sfdefault}
+\else
+    \RequirePackage{fontspec}
+
+    \setmainfont{Arial}
+    \setsansfont{Arial}
+    \renewcommand{\familydefault}{\sfdefault}
+
+    \RequirePackage{unicode-math}
+
+    \setmathfont{Latin Modern Math}
+\fi
+
+% 13pt * 1.2
+\newcommand{\siccusp@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{page}
+%   Cabeçalho com o logotipo do SIICUSP; sem numeração de página.
+%   \begin{macrocode}
+\setlength{\headheight}{4.6cm}
+\setlength{\headsep}{1.0cm}
+
+\def\ps@headings{%
+    \def\@oddhead{\raisebox{-0.9cm}{\includegraphics[height=3.8cm]{logo.png}\hfill}}
+    \let\@evenhead\@oddhead
+    \def\@oddfoot{}%
+    \let\@evenfoot\@oddfoot
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%<*package>
+\pagestyle{headings}
+%</package>
+% \fi
+%
+% \begin{macro}{\collaborators}
+%   \begin{macrocode}
+\newcommand*{\collaborators}[1]{\gdef\@collaborators{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\advisor}
+%   \begin{macrocode}
+\newcommand*{\advisor}[1]{\gdef\@advisor{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\institution}
+%   \begin{macrocode}
+\newcommand*{\institution}[1]{\gdef\@institution{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\emailauthor}
+%   \begin{macrocode}
+\newcommand*{\emailauthor}[1]{\gdef\@emailauthor{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%     \begin{macro}{\cover}
+%       Construção da capa.
+%    \begin{macrocode}
+\renewcommand{\@maketitle}{%
+\newpage\null%
+\vskip 2em
+\begin{center}
+    \let\footnote\thanks%
+    {\siccusp@thirteenpt\bfseries\MakeUppercase{\@title}\par}
+    \vspace{1.2em}
+    {\normalfont\siccusp@thirteenpt\bfseries\lineskip .5em
+    \begin{tabular}[t]{c}%
+        \@author
+    \end{tabular}\par}
+    \ifdefined\@collaborators
+        \vspace{1.2em}
+        {\normalfont\siccusp@thirteenpt\bfseries\@collaborators\par}
+    \fi
+    \vspace{1.2em}
+    {\normalfont\siccusp@thirteenpt\bfseries\@advisor\par}
+    \vspace{1.2em}
+    {\normalfont\siccusp@thirteenpt\@institution\par}
+    \vspace{1.2em}
+    {\normalfont\small\@emailauthor\par}
+    \vspace{0.3em}
+\end{center}
+\par
+\vspace{2em}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%     \begin{macro}{\subsubsection}
+%       Construção dos títulos das seções, respeitando a hierarquia da formatação das seções.
+%    \begin{macrocode}
+\renewcommand\section{%
+    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siccusp@thirteenpt\bfseries}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\captionsbrazil}
+%   Configuração das traduções.
+%   \begin{macrocode}
+\addto\captionsbrazil{%
+    \renewcommand{\refname}{Referências bibliográficas}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \Finale
