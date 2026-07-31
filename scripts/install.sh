@@ -25,4 +25,10 @@ cp ${WORKDIR}/logo.png $TEXMFHOME/tex/latex/${PKG}/
 texhash
 mktexlsr "$TEXMFHOME"
 
+cd examples
+pdflatex model
+grep -q "\\citation" model.aux && bibtex model
+pdflatex model
+pdflatex model
+
 exit 0
