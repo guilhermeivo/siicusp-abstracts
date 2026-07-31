@@ -29,9 +29,9 @@ texhash
 mktexlsr "$TEXMFHOME"
 
 cd examples
-pdflatex model
+lualatex model
 grep -q "\\citation" model.aux && bibtex model
-pdflatex model
-pdflatex model
+lualatex model
+lualatex model
 
 exit 0
