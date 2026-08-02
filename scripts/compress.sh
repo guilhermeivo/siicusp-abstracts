@@ -3,7 +3,7 @@
 set -e
 
 WORKDIR="${PWD}"
-PKG="siicusp"
+PKG=${1:-"siicusp-abstracts"}
 
 TAG=$(git tag --sort=-v:refname | head -n1)
 
@@ -31,14 +31,14 @@ if [ -f "$WORKDIR/${PKG}.pdf" ]; then
     cp "$WORKDIR/${PKG}.pdf" "$OUT/$PKG/"
 fi
 
-if [ -f "$WORKDIR/logo.png" ]; then
-    cp "$WORKDIR/logo.png" "$OUT/$PKG/"
+if [ -f "$WORKDIR/${PKG}-logo.png" ]; then
+    cp "$WORKDIR/${PKG}-logo.png" "$OUT/$PKG/"
 fi
 
-cp "$WORKDIR/examples/model.tex" "$OUT/$PKG/"
+cp "$WORKDIR/examples/${PKG}-model.tex" "$OUT/$PKG/"
 
-if [ -f "$WORKDIR/examples/model.pdf" ]; then
-    cp "$WORKDIR/examples/model.pdf" "$OUT/$PKG/"
+if [ -f "$WORKDIR/examples/${PKG}-model.pdf" ]; then
+    cp "$WORKDIR/examples/${PKG}-model.pdf" "$OUT/$PKG/"
 fi
 
 cd "$OUT"

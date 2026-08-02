@@ -16,11 +16,11 @@
 %
 % \iffalse
 %
-%<driver>\ProvidesFile{siicusp.dtx}
+%<driver>\ProvidesFile{siicusp-abstracts.dtx}
 %
-%<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesPackage{siicusp}
-%<class>    [2026/07/31 v1.0.0 SIICUSP]
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{siicusp-abstracts}
+%<package>    [2026/07/31 v1.0.0 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -44,7 +44,7 @@
     \makeindex
 
     \begin{document}
-        \DocInput{siicusp.dtx}
+        \DocInput{siicusp-abstracts.dtx}
     \end{document}
 %</driver>
 % \fi
@@ -57,7 +57,7 @@
 %
 % \fi
 %
-% \title{O Pacote SIICUSP\\Esse documento corresponde a siicusp.sty.}
+% \title{O Pacote SIICUSP Abstracts\\Esse documento corresponde a siicusp-abstracts.sty.}
 % \author{Guilherme Ivo Bozi}
 % 
 % \maketitle
@@ -109,7 +109,7 @@
 \setlength{\headsep}{1.0cm}
 
 \def\ps@headings{%
-    \def\@oddhead{\raisebox{-0.9cm}{\includegraphics[height=3.8cm]{logo.png}\hfill}}
+    \def\@oddhead{\raisebox{-0.9cm}{\includegraphics[height=3.8cm]{siicusp-abstracts-logo.png}\hfill}}
     \let\@evenhead\@oddhead
     \def\@oddfoot{}%
     \let\@evenfoot\@oddfoot
@@ -151,17 +151,17 @@
 \fi
 
 % 15.6pt = 13pt * 1.2
-\newcommand{\siicusp@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
+\newcommand{\siicuspabstracts@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
 
 % 12pt = 10pt * 1.2
-\newcommand{\siicusp@tenpt}{\fontsize{10pt}{12pt}\selectfont}
+\newcommand{\siicuspabstracts@tenpt}{\fontsize{10pt}{12pt}\selectfont}
 
 \renewcommand{\normalsize}{%
     \@setfontsize\normalsize{10pt}{12pt}%
 }
 
 \renewcommand\section{%
-    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siicusp@thirteenpt\bfseries}%
+    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -201,22 +201,22 @@
 \vskip 2em
 \begin{center}
     \let\footnote\thanks%
-    {\siicusp@thirteenpt\bfseries\MakeUppercase{\@title}\par}
+    {\siicuspabstracts@thirteenpt\bfseries\MakeUppercase{\@title}\par}
     \vspace{1.2em}
-    {\normalfont\siicusp@thirteenpt\bfseries\lineskip .5em
+    {\normalfont\siicuspabstracts@thirteenpt\bfseries\lineskip .5em
     \begin{tabular}[t]{c}%
         \@author
     \end{tabular}\par}
     \ifdefined\@collaborators
         \vspace{1.2em}
-        {\normalfont\siicusp@thirteenpt\bfseries\@collaborators\par}
+        {\normalfont\siicuspabstracts@thirteenpt\bfseries\@collaborators\par}
     \fi
     \vspace{1.2em}
-    {\normalfont\siicusp@thirteenpt\bfseries\@advisor\par}
+    {\normalfont\siicuspabstracts@thirteenpt\bfseries\@advisor\par}
     \vspace{1.2em}
-    {\normalfont\siicusp@thirteenpt\@institution\par}
+    {\normalfont\siicuspabstracts@thirteenpt\@institution\par}
     \vspace{1.2em}
-    {\normalfont\siicusp@tenpt\@emailauthor\par}
+    {\normalfont\siicuspabstracts@tenpt\@emailauthor\par}
     \vspace{0.3em}
 \end{center}
 \par

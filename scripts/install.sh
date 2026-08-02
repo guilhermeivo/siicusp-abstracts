@@ -2,7 +2,7 @@
 set -ex
 
 WORKDIR="${PWD}"
-PKG=${1:-"siicusp"}
+PKG=${1:-"siicusp-abstracts"}
 
 if [ ! -d "${WORKDIR}/scripts" ]; then
   echo "${WORKDIR}/scripts does not exist."
@@ -23,15 +23,15 @@ mkdir -p ${TEXMFHOME}/tex/latex/${PKG}/
 #mkdir -p ${TEXMFHOME}/bibtex/bst/
 
 cp ${WORKDIR}/${PKG}.sty $TEXMFHOME/tex/latex/${PKG}/
-cp ${WORKDIR}/logo.png $TEXMFHOME/tex/latex/${PKG}/
+cp ${WORKDIR}/siicusp-abstracts-logo.png $TEXMFHOME/tex/latex/${PKG}/
 
 texhash
 mktexlsr "$TEXMFHOME"
 
 cd examples
-lualatex model
-grep -q "\\citation" model.aux && bibtex model
-lualatex model
-lualatex model
+lualatex ${PKG}-model
+grep -q "\\citation" ${PKG}-model.aux && bibtex ${PKG}-model
+lualatex ${PKG}-model
+lualatex ${PKG}-model
 
 exit 0
