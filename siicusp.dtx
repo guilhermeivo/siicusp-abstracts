@@ -30,10 +30,18 @@
     \usepackage[T1]{fontenc}
     \usepackage[brazilian]{babel}
 
+    \usepackage{makeidx}
+
     \usepackage{hypdoc}
 
     \EnableCrossrefs
     \RecordChanges
+
+    \GlossaryPrologue{\section*{Histórico de Alterações}}
+
+    \IndexPrologue{\section*{Índice Remissivo} Números em itálico referem-se à página de descrição; números sublinhados referem-se à linha de definição.}
+
+    \makeindex
 
     \begin{document}
         \DocInput{siicusp.dtx}
@@ -49,12 +57,32 @@
 %
 % \fi
 %
+% \title{O Pacote SIICUSP\\Esse documento corresponde a siicusp.sty.}
+% \author{Guilherme Ivo Bozi}
+% 
+% \maketitle
+%
+%   \let\originalindex\index
+%   \renewcommand{\index}[1]{#1\originalindex{#1}}
+% 
 % \changes{v1.0.0}{2026/07/30}{Versão inicial}
 % 
 % \PrintChanges
+%   \tableofcontents
+%
+% \iffalse
+%<*package>
+\RequirePackage{graphicx}
+\RequirePackage[brazil]{babel}
+%</package>
+% \fi
+%
+%   \section{Estrutura do Documento}
+%   
+%   O Resumo deve conter até duas páginas, o logotipo do edital vigente do \index{SIICUSP}.
 %
 % \begin{macro}{geometry (package)}
-%   Configurações de margem do documento em conformidade com o modelo fornecido pelo SIICUSP.
+%   Configurações de margem do documento em conformidade com o modelo fornecido pelo \index{SIICUSP}.
 %    \begin{macrocode}
 \RequirePackage{geometry}
 
@@ -69,43 +97,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \iffalse
-%<*package>
-\RequirePackage{geometry}
-\RequirePackage{iftex}
-\RequirePackage{graphicx}
-\RequirePackage[brazil]{babel}
-%</package>
-% \fi
-%
-% \begin{macro}{geometry (package)}
-%   Configurações de margem do documento em conformidade com o modelo fornecido pelo SIICUSP.
+%   Espaçamento de 0,8 cm entre as colunas (Anexo I - III. (c)), necessário adicionar \texttt{twocolumn} como opção na classe:
 %    \begin{macrocode}
-\ifPDFTeX
-    \RequirePackage[T1]{fontenc}
-    \RequirePackage[utf8]{inputenc}
-    \RequirePackage{lmodern} % ou helvet, newtxtext, etc.
-
-    \renewcommand{\familydefault}{\sfdefault}
-\else
-    \RequirePackage{fontspec}
-
-    \setmainfont{Arial}
-    \setsansfont{Arial}
-    \renewcommand{\familydefault}{\sfdefault}
-
-    \RequirePackage{unicode-math}
-
-    \setmathfont{Latin Modern Math}
-\fi
-
-% 13pt * 1.2
-\newcommand{\siccusp@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
+\setlength{\columnsep}{0.8cm}
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{page}
-%   Cabeçalho com o logotipo do SIICUSP; sem numeração de página.
+% \begin{macro}{headings}
+%   Cabeçalho com o logotipo do \index{SIICUSP}; sem numeração de página.
 %   \begin{macrocode}
 \setlength{\headheight}{4.6cm}
 \setlength{\headsep}{1.0cm}
@@ -125,7 +123,54 @@
 %</package>
 % \fi
 %
+%   \section{Tipografia}
+%
+%     \begin{macro}{\section}
+%   \begin{macro}{\subsection}
+%   Fonte \textbf{Arial}, com as suas respectivas dimensões (Anexo I - III (d)):
+%
+%    \begin{macrocode}
+\RequirePackage{iftex}
+
+\ifPDFTeX
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage[utf8]{inputenc}
+    \RequirePackage{lmodern} % ou helvet, newtxtext, etc.
+
+    \renewcommand{\familydefault}{\sfdefault}
+\else
+    \RequirePackage{fontspec}
+
+    \setmainfont{Arial}
+    \setsansfont{Arial}
+    \renewcommand{\familydefault}{\sfdefault}
+
+    \RequirePackage{unicode-math}
+
+    \setmathfont{Latin Modern Math}
+\fi
+
+% 15.6pt = 13pt * 1.2
+\newcommand{\siicusp@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
+
+% 12pt = 10pt * 1.2
+\newcommand{\siicusp@tenpt}{\fontsize{10pt}{12pt}\selectfont}
+
+\renewcommand{\normalsize}{%
+    \@setfontsize\normalsize{10pt}{12pt}%
+}
+
+\renewcommand\section{%
+    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siicusp@thirteenpt\bfseries}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%   \section{Capa do título}
+%
 % \begin{macro}{\collaborators}
+%   Cada trabalho poderá ter até três colaboradores que tenham participado do desenvolvimento do projeto.
 %   \begin{macrocode}
 \newcommand*{\collaborators}[1]{\gdef\@collaborators{#1}}
 %    \end{macrocode}
@@ -136,40 +181,42 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\institution}
+%   Unidade e Universidade
 %   \begin{macrocode}
 \newcommand*{\institution}[1]{\gdef\@institution{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\emailauthor}
+%   E-mail do primeiro autor
 %   \begin{macrocode}
 \newcommand*{\emailauthor}[1]{\gdef\@emailauthor{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
-%     \begin{macro}{\cover}
-%       Construção da capa.
+%     \begin{macro}{\maketitle}
+%       Construção da capa, com ii. Nomes: 13pt, negrito, centralizado; iii. Faculdade/Universidade: 13pt, centralizado; iv. e-mail: 10pt, centralizado (Anexo I);
 %    \begin{macrocode}
 \renewcommand{\@maketitle}{%
 \newpage\null%
 \vskip 2em
 \begin{center}
     \let\footnote\thanks%
-    {\siccusp@thirteenpt\bfseries\MakeUppercase{\@title}\par}
+    {\siicusp@thirteenpt\bfseries\MakeUppercase{\@title}\par}
     \vspace{1.2em}
-    {\normalfont\siccusp@thirteenpt\bfseries\lineskip .5em
+    {\normalfont\siicusp@thirteenpt\bfseries\lineskip .5em
     \begin{tabular}[t]{c}%
         \@author
     \end{tabular}\par}
     \ifdefined\@collaborators
         \vspace{1.2em}
-        {\normalfont\siccusp@thirteenpt\bfseries\@collaborators\par}
+        {\normalfont\siicusp@thirteenpt\bfseries\@collaborators\par}
     \fi
     \vspace{1.2em}
-    {\normalfont\siccusp@thirteenpt\bfseries\@advisor\par}
+    {\normalfont\siicusp@thirteenpt\bfseries\@advisor\par}
     \vspace{1.2em}
-    {\normalfont\siccusp@thirteenpt\@institution\par}
+    {\normalfont\siicusp@thirteenpt\@institution\par}
     \vspace{1.2em}
-    {\normalfont\small\@emailauthor\par}
+    {\normalfont\siicusp@tenpt\@emailauthor\par}
     \vspace{0.3em}
 \end{center}
 \par
@@ -178,22 +225,15 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%     \begin{macro}{\subsubsection}
-%       Construção dos títulos das seções, respeitando a hierarquia da formatação das seções.
-%    \begin{macrocode}
-\renewcommand\section{%
-    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siccusp@thirteenpt\bfseries}%
-}
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\captionsbrazil}
-%   Configuração das traduções.
+%   Configuração das traduções, para corresponder ao modelo fornecido.
 %   \begin{macrocode}
 \addto\captionsbrazil{%
     \renewcommand{\refname}{Referências bibliográficas}
 }
 %    \end{macrocode}
 % \end{macro}
+%
+%   \printindex
 %
 % \Finale

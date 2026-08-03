@@ -11,7 +11,10 @@ fi
 yes | latex "${PKG}".ins
 
 pdflatex "${PKG}".dtx
-makeindex -s gglo.ist -o "${PKG}".gls "${PKG}".glo
+
+makeindex -s gind.ist -o "${PKG}".ind "${PKG}".idx # \index{}
+makeindex -s gglo.ist -o "${PKG}".gls "${PKG}".glo # \changes{}
+
 pdflatex "${PKG}".dtx
 pdflatex "${PKG}".dtx
 
