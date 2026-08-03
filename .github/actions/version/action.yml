@@ -1,0 +1,28 @@
+name: "Get latest tag version"
+
+outputs:
+  tag:
+    description: "Latest git tag"
+    value: ${{ steps.latest.outputs.tag }}
+
+  version:
+    description: "Latest version without v prefix"
+    value: ${{ steps.latest.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest version
+      shell: bash
+      id: latest
+      run: |
+        TAG=$(git tag --sort=-v:refname | head -n1)
+
+        if [ -z "$TAG" ]; then
+          TAG="v0.0.0"
+        fi
+
+        VERSION="${TAG#v}"
+
+        echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"

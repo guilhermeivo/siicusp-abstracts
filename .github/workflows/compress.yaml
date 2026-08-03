@@ -1,0 +1,73 @@
+name: Build Documentation and Examples
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: ./.github/actions/version
+        id: latest
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+
+          echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-lang-portuguese \
+            texlive-luatex \
+            latexmk \
+            ttf-mscorefonts-installer
+          
+          sudo fc-cache -f -v
+          luaotfload-tool --update
+
+      - name: List Arial fonts
+        run: |
+          fc-list | grep -i arial || true
+
+      - name: Install and Compress siicusp-abstracts.sty
+        run: |
+          ./scripts/install.sh
+          ./scripts/compress.sh
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: siicusp-abstracts-${{ steps.latest.outputs.version }}
+          path: dist/siicusp-abstracts
+          if-no-files-found: error
+
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: ./.github/actions/version
+        id: latest
+
+      - uses: actions/download-artifact@v7
+        with:
+          name: siicusp-abstracts-${{ steps.latest.outputs.version }}
+
+      - run: |
+          ls -l
