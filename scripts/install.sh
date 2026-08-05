@@ -10,13 +10,13 @@ fi
 
 yes | latex "${PKG}".ins
 
-pdflatex "${PKG}".dtx
+pdflatex -jobname="${PKG}-doc" "${PKG}".dtx
 
-makeindex -s gind.ist -o "${PKG}".ind "${PKG}".idx # \index{}
-makeindex -s gglo.ist -o "${PKG}".gls "${PKG}".glo # \changes{}
+makeindex -s gind.ist -o "${PKG}-doc".ind "${PKG}-doc".idx # \index{}
+makeindex -s gglo.ist -o "${PKG}-doc".gls "${PKG}-doc".glo # \changes{}
 
-pdflatex "${PKG}".dtx
-pdflatex "${PKG}".dtx
+pdflatex -jobname="${PKG}-doc" "${PKG}".dtx
+pdflatex -jobname="${PKG}-doc" "${PKG}".dtx
 
 TEXMFHOME=$(kpsewhich -var-value TEXMFHOME)
 mkdir -p ${TEXMFHOME}/tex/latex/${PKG}/

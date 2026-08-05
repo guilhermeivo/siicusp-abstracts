@@ -27,8 +27,8 @@ if [ -f "$WORKDIR/LICENSE" ]; then
     cp "$WORKDIR/LICENSE" "$OUT/$PKG/"
 fi
 
-if [ -f "$WORKDIR/${PKG}.pdf" ]; then
-    cp "$WORKDIR/${PKG}.pdf" "$OUT/$PKG/"
+if [ -f "$WORKDIR/${PKG}-doc.pdf" ]; then
+    cp "$WORKDIR/${PKG}-doc.pdf" "$OUT/$PKG/"
 fi
 
 if [ -f "$WORKDIR/${PKG}-logo.png" ]; then
