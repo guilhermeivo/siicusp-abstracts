@@ -29,6 +29,7 @@ jobs:
             texlive-latex-extra \
             texlive-fonts-recommended \
             texlive-lang-portuguese \
+            texlive-science \
             texlive-luatex \
             latexmk \
             ttf-mscorefonts-installer

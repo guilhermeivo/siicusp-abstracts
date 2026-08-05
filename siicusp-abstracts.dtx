@@ -201,12 +201,29 @@
 %
 % Configura a tipografia exigida pelo modelo do SIICUSP.
 %
+% Redefine os tamanhos de fonte utilizados no documento, incluindo o
+% texto principal e os títulos de seção.
+%
+%    \begin{macrocode}
+% 15.6pt = 13pt * 1.2
+\newcommand{\siicuspabstracts@thirteenpt}{%
+    \fontsize{13pt}{15.6pt}\selectfont%
+}
+
+% 12pt = 10pt * 1.2
+\newcommand{\siicuspabstracts@tenpt}{%
+    \fontsize{10pt}{12pt}\selectfont%
+}
+
+% 10.8pt = 9pt * 1.2
+\newcommand{\siicuspabstracts@ninept}{%
+    \fontsize{9pt}{10.8pt}\selectfont%
+}
+%    \end{macrocode}
+%
 % Quando compilado com Xe\LaTeX{} ou Lua\LaTeX{}, utiliza a fonte Arial
 % instalada no sistema. Em pdf\LaTeX{}, utiliza uma fonte sans-serif compatível
 % como alternativa.
-%
-% Também redefine os tamanhos de fonte utilizados no documento, incluindo o
-% texto principal e os títulos de seção.
 %
 %    \begin{macrocode}
 \RequirePackage{iftex}
@@ -229,16 +246,6 @@
     \setmathfont{Latin Modern Math}
 \fi
 
-% 15.6pt = 13pt * 1.2
-\newcommand{\siicuspabstracts@thirteenpt}{%
-    \fontsize{13pt}{15.6pt}\selectfont%
-}
-
-% 12pt = 10pt * 1.2
-\newcommand{\siicuspabstracts@tenpt}{%
-    \fontsize{10pt}{12pt}\selectfont%
-}
-
 \renewcommand{\normalsize}{%
     \@setfontsize\normalsize{10pt}{12pt}%
 }
@@ -250,8 +257,43 @@
         {2.3ex\@plus .2ex}%
         {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
+
+\renewcommand\subsection{%
+    \@startsection{subsection}{2}
+        {\z@ }%
+        {-3.25ex\@plus -1ex\@minus -.2ex}%
+        {1.5ex\@plus .2ex}%
+        {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
+}
 %    \end{macrocode}
 % \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@makecaption}
+%
+% Configura as legendas de figuras e tabelas conforme o modelo do SIICUSP.
+%
+% As legendas utilizam fonte de \SI{9}{pt}, são centralizadas e não utilizam
+% negrito ou itálico. Para legendas com largura superior à coluna, o
+% comportamento padrão do \LaTeX{} é preservado, permitindo quebra automática
+% de linhas.
+%
+%    \begin{macrocode}
+\long\def\@makecaption#1#2{%
+    \vskip\abovecaptionskip
+    \begingroup
+        \siicuspabstracts@ninept
+        \sbox\@tempboxa{#1: #2}%
+        \ifdim\wd\@tempboxa>\hsize
+            #1: #2\par
+        \else
+            \global\@minipagefalse
+            \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+        \fi
+    \endgroup
+    \vskip\belowcaptionskip
+}
+%    \end{macrocode}
 % \end{macro}
 %
 % \section{Informações do título}
