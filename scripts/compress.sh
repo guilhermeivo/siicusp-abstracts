@@ -19,6 +19,8 @@ ZIP="${PKG}-${VERSION}.zip"
 rm -rf "$OUT"
 mkdir -p "$OUT/$PKG"
 
+echo "$VERSION" > "$OUT/$PKG/VERSION"
+
 cp "$WORKDIR/${PKG}.dtx" "$OUT/$PKG/"
 cp "$WORKDIR/${PKG}.ins" "$OUT/$PKG/"
 cp "$WORKDIR/README.md" "$OUT/$PKG/"
