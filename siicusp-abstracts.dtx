@@ -30,6 +30,8 @@
     \usepackage[T1]{fontenc}
     \usepackage[brazilian]{babel}
 
+    \usepackage{siunitx}
+
     \usepackage{makeidx}
 
     \usepackage{hypdoc}
@@ -57,32 +59,75 @@
 %
 % \fi
 %
-% \title{O Pacote SIICUSP\footnote{Simpósio Internacional de Iniciação Científica e Tecnológica da USP} Abstracts\\Esse documento corresponde a siicusp-abstracts.sty.}
-% \author{Guilherme Ivo Bozi}
+% \title{O pacote \texttt{siicusp-abstracts}\footnote{Simpósio Internacional de Iniciação Científica e Tecnológica da USP}\\Esse documento corresponde a \texttt{siicusp-abstracts.sty}.}
+% \author{Guilherme Ivo}
 % 
 % \maketitle
 %
-%   \let\originalindex\index
-%   \renewcommand{\index}[1]{#1\originalindex{#1}}
+% \newcommand{\idxtext}[1]{#1\index{#1}}
+% \setlength{\MacroIndent}{0pt}
 % 
 % \changes{v1.0.0}{2026/07/30}{Versão inicial}
 % 
 % \PrintChanges
-%   \tableofcontents
+%    \tableofcontents
 %
 % \iffalse
 %<*package>
 \RequirePackage{graphicx}
 \RequirePackage[brazilian]{babel}
+
+\newcommand{\siicuspabstracts@logofile}{siicusp-abstracts-logo.png}
+
 %</package>
 % \fi
 %
-%   \section{Estrutura do Documento}
-%   
-%   O Resumo deve conter até duas páginas, o logotipo do edital vigente do \index{SIICUSP}.
+% \section{Introdução}
+%
+% O pacote \texttt{siicusp-abstracts} fornece uma configuração de \LaTeX{} para
+% elaboração de resumos científicos de acordo com as diretrizes de formatação do
+% \idxtext{SIICUSP} (Simpósio Internacional de Iniciação Científica e
+% Tecnológica da USP).
+%
+% O pacote configura automaticamente aspectos como margens, tipografia,
+% cabeçalho, informações do título e referências bibliográficas, permitindo que
+% o autor concentre seus esforços no conteúdo do trabalho.
+%
+% Este projeto é independente e não possui qualquer vínculo oficial com a
+% comissão organizadora do SIICUSP. Antes da submissão de um resumo,
+% recomenda-se consultar o edital e as instruções oficiais mais recentes, pois
+% as exigências de formatação podem ser alteradas ao longo do tempo.
+%
+% \paragraph{Importante}
+%
+% Este pacote procura reproduzir o modelo oficial do SIICUSP, porém não inclui
+% materiais protegidos por direitos autorais, como o logotipo do evento.
+% Cabe ao usuário obter esses arquivos a partir do edital ou dos materiais
+% oficiais disponibilizados pela organização e verificar se houve alterações na
+% identidade visual ou nas normas de formatação da edição em que o resumo será
+% submetido.
+%
+% \subsection{Arquivos necessários}
+%
+% O pacote não distribui o logotipo oficial do SIICUSP.
+%
+% O usuário deve obter o modelo oficial disponibilizado pela organização do
+% evento e copiar o arquivo de imagem do logotipo para o mesmo diretório do
+% documento ou para um diretório acessível pelo \LaTeX.
+%
+% Por padrão, o pacote procura pelo arquivo
+% \texttt{siicusp-abstracts-logo.png}.
+%
+% Como a identidade visual do SIICUSP pode ser alterada entre diferentes
+% edições do simpósio, recomenda-se sempre utilizar o logotipo correspondente
+% ao edital vigente.
 %
 % \begin{macro}{geometry (package)}
-%   Configurações de margem do documento em conformidade com o modelo fornecido pelo \index{SIICUSP}.
+%
+% Configura automaticamente a geometria da página conforme o modelo de resumo
+% disponibilizado pelo \idxtext{SIICUSP}. São definidos o tamanho do papel, as
+% margens e a área reservada ao cabeçalho contendo o logotipo do evento.
+%
 %    \begin{macrocode}
 \RequirePackage{geometry}
 
@@ -97,19 +142,45 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%   Espaçamento de 0,8 cm entre as colunas (Anexo I - III. (c)), necessário adicionar \texttt{twocolumn} como opção na classe:
+% Define o espaçamento de \SI{0.8}{cm} entre as colunas, conforme as orientações
+% do edital. Para produzir o resumo em duas colunas é necessário utilizar a
+% opção \texttt{twocolumn} na classe do documento.
+%
 %    \begin{macrocode}
 \setlength{\columnsep}{0.8cm}
 %    \end{macrocode}
 %
 % \begin{macro}{headings}
-%   Cabeçalho com o logotipo do \index{SIICUSP}; sem numeração de página.
-%   \begin{macrocode}
+%
+% Configura o estilo da página para incluir o logotipo do SIICUSP no
+% cabeçalho e remove a numeração das páginas, reproduzindo o modelo oficial do
+% resumo.
+%
+% O logotipo é carregado a partir do arquivo
+% \texttt{siicusp-abstracts-logo.png}. Esse arquivo não faz parte deste pacote
+% e deve ser fornecido pelo usuário, utilizando a versão correspondente ao
+% edital vigente do SIICUSP.
+%
+%    \begin{macrocode}
 \setlength{\headheight}{4.6cm}
 \setlength{\headsep}{1.0cm}
 
 \def\ps@headings{%
-    \def\@oddhead{\raisebox{-0.9cm}{\includegraphics[height=3.8cm]{siicusp-abstracts-logo.png}\hfill}}
+    \def\@oddhead{%
+        \raisebox{-0.9cm}{%
+            % O usuário deve fornecer este arquivo.
+            \IfFileExists{\siicuspabstracts@logofile}{
+                \includegraphics[height=3.8cm]{\siicuspabstracts@logofile}
+            }{
+                \PackageError
+                    {siicusp-abstracts}
+                    {File '\siicuspabstracts@logofile' not found}
+                    {Download the official SIICUSP logo corresponding to\MessageBreak
+                    the current call for papers and place it in the document\MessageBreak
+                    directory.}
+            }
+            \hfill%
+    }}
     \let\@evenhead\@oddhead
     \def\@oddfoot{}%
     \let\@evenfoot\@oddfoot
@@ -123,11 +194,19 @@
 %</package>
 % \fi
 %
-%   \section{Tipografia}
+% \section{Tipografia}
 %
-%     \begin{macro}{\section}
-%   \begin{macro}{\subsection}
-%   Fonte \textbf{Arial}, com as suas respectivas dimensões (Anexo I - III (d)):
+% \begin{macro}{\section}
+% \begin{macro}{\subsection}
+%
+% Configura a tipografia exigida pelo modelo do SIICUSP.
+%
+% Quando compilado com Xe\LaTeX{} ou Lua\LaTeX{}, utiliza a fonte Arial
+% instalada no sistema. Em pdf\LaTeX{}, utiliza uma fonte sans-serif compatível
+% como alternativa.
+%
+% Também redefine os tamanhos de fonte utilizados no documento, incluindo o
+% texto principal e os títulos de seção.
 %
 %    \begin{macrocode}
 \RequirePackage{iftex}
@@ -151,50 +230,80 @@
 \fi
 
 % 15.6pt = 13pt * 1.2
-\newcommand{\siicuspabstracts@thirteenpt}{\fontsize{13pt}{15.6pt}\selectfont}
+\newcommand{\siicuspabstracts@thirteenpt}{%
+    \fontsize{13pt}{15.6pt}\selectfont%
+}
 
 % 12pt = 10pt * 1.2
-\newcommand{\siicuspabstracts@tenpt}{\fontsize{10pt}{12pt}\selectfont}
+\newcommand{\siicuspabstracts@tenpt}{%
+    \fontsize{10pt}{12pt}\selectfont%
+}
 
 \renewcommand{\normalsize}{%
     \@setfontsize\normalsize{10pt}{12pt}%
 }
 
 \renewcommand\section{%
-    \@startsection{section}{1}{\z@ }{-3.5ex\@plus -1ex\@minus -.2ex}{2.3ex\@plus .2ex}{\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
+    \@startsection{section}{1}%
+        {\z@ }%
+        {-3.5ex\@plus -1ex\@minus -.2ex}%
+        {2.3ex\@plus .2ex}%
+        {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
-%   \section{Capa do título}
+% \section{Informações do título}
 %
-% \begin{macro}{\collaborators}
-%   Cada trabalho poderá ter até três colaboradores que tenham participado do desenvolvimento do projeto.
-%   \begin{macrocode}
+% O pacote fornece comandos para definir as informações apresentadas no
+% cabeçalho do resumo, incluindo autores, colaboradores, orientador,
+% instituição e endereço de e-mail.
+%
+% \DescribeMacro{\title}
+% Define o título do trabalho. O pacote utiliza a informação fornecida por
+% \cs{title} para produzir o cabeçalho conforme o modelo do SIICUSP.
+%
+% \DescribeMacro{\author}
+% Define o(s) autor(es) do trabalho. O conteúdo é utilizado pelo comando
+% \cs{maketitle} sem alterações na sintaxe da classe do documento.
+%
+% \DescribeMacro{\collaborators}
+% Define os colaboradores do trabalho. O regulamento do SIICUSP permite até
+% três colaboradores que tenham participado do desenvolvimento do projeto.
+%
+%    \begin{macrocode}
 \newcommand*{\collaborators}[1]{\gdef\@collaborators{#1}}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\advisor}
-%   \begin{macrocode}
+%
+% \DescribeMacro{\advisor}
+% Define o nome do orientador do trabalho.
+%
+%    \begin{macrocode}
 \newcommand*{\advisor}[1]{\gdef\@advisor{#1}}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\institution}
-%   Unidade e Universidade
-%   \begin{macrocode}
+%
+% \DescribeMacro{\institution}
+% Define a unidade, instituto ou faculdade e a universidade às quais o trabalho
+% está vinculado.
+%
+%    \begin{macrocode}
 \newcommand*{\institution}[1]{\gdef\@institution{#1}}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\emailauthor}
-%   E-mail do primeiro autor
-%   \begin{macrocode}
+%
+% \DescribeMacro{\emailauthor}
+% Define o endereço de e-mail do primeiro autor.
+%
+%    \begin{macrocode}
 \newcommand*{\emailauthor}[1]{\gdef\@emailauthor{#1}}
 %    \end{macrocode}
-% \end{macro}
 %
-%     \begin{macro}{\maketitle}
-%       Construção da capa, com ii. Nomes: 13pt, negrito, centralizado; iii. Faculdade/Universidade: 13pt, centralizado; iv. e-mail: 10pt, centralizado (Anexo I);
+% \DescribeMacro{\maketitle}
+% Produz o bloco de identificação do resumo conforme o modelo do SIICUSP,
+% utilizando as informações definidas por \cs{title}, \cs{author},
+% \cs{collaborators}, \cs{advisor}, \cs{institution} e
+% \cs{emailauthor}.
+%
 %    \begin{macrocode}
 \renewcommand{\@maketitle}{%
 \newpage\null%
@@ -223,17 +332,41 @@
 \vspace{2em}
 }
 %    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{\captionsbrazilian}
-%   Configuração das traduções, para corresponder ao modelo fornecido.
-%   \begin{macrocode}
+%
+% Ajusta os textos gerados automaticamente pelo \LaTeX{} para corresponder
+% à nomenclatura utilizada pelo modelo do SIICUSP.
+%
+%    \begin{macrocode}
 \addto\captionsbrazilian{%
     \renewcommand{\refname}{Referências bibliográficas}
 }
 %    \end{macrocode}
 % \end{macro}
 %
-%   \printindex
+% \section{Exemplo}
+%
+% Um documento mínimo utilizando o pacote:
+%
+% \begin{verbatim}
+% \documentclass[twocolumn]{article}
+% \usepackage{siicusp-abstracts}
+%
+% \title{TÍTULO}
+% \author{Autor(es) - Estudante(s) de Graduação}
+% \advisor{Orientador(a)}
+% \institution{Faculdade/Universidade}
+% \emailauthor{E-mail do primeiro autor}
+%
+% \begin{document}
+% \maketitle\thispagestyle{headings}
+%
+% Texto do resumo...
+%
+% \end{document}
+% \end{verbatim}
+%
+% \printindex
 %
 % \Finale
