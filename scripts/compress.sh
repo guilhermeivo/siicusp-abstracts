@@ -21,7 +21,7 @@ mkdir -p "$OUT/$PKG"
 
 cp "$WORKDIR/${PKG}.dtx" "$OUT/$PKG/"
 cp "$WORKDIR/${PKG}.ins" "$OUT/$PKG/"
-cp "$WORKDIR/README" "$OUT/$PKG/"
+cp "$WORKDIR/README.md" "$OUT/$PKG/"
 
 if [ -f "$WORKDIR/LICENSE" ]; then
     cp "$WORKDIR/LICENSE" "$OUT/$PKG/"
