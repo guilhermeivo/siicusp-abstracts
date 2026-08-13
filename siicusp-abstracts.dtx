@@ -20,7 +20,7 @@
 %
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{siicusp-abstracts}
-%<package>    [2026/08/05 v1.1.0 SIICUSP Abstracts]
+%<package>    [2026/08/05 v1.1.1 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -66,6 +66,11 @@
 %
 % \newcommand{\idxtext}[1]{#1\index{#1}}
 % \setlength{\MacroIndent}{0pt}
+%
+% \changes{v1.1.1}{2026/08/12}{
+%   Ajusta medidas, espaçamentos e posicionamento do logotipo e dos títulos,
+%   aprimorando a correspondência visual com o modelo oficial do SIICUSP.
+% }
 %
 % \changes{v1.1.0}{2026/08/05}{
 %   Aprimora a documentação do pacote, ajusta a formatação para maior
@@ -170,14 +175,15 @@
 %
 %    \begin{macrocode}
 \setlength{\headheight}{4.6cm}
-\setlength{\headsep}{1.0cm}
+\setlength{\headsep}{1.4cm}
 
 \def\ps@headings{%
     \def\@oddhead{%
-        \raisebox{-0.9cm}{%
+        \raisebox{-0.68cm}{%
+            \hspace*{-1cm}%
             % O usuário deve fornecer este arquivo.
             \IfFileExists{\siicuspabstracts@logofile}{
-                \includegraphics[height=3.8cm]{\siicuspabstracts@logofile}
+                \includegraphics[height=3.56cm]{\siicuspabstracts@logofile}
             }{
                 \PackageError
                     {siicusp-abstracts}
@@ -260,8 +266,8 @@
 \renewcommand\section{%
     \@startsection{section}{1}%
         {\z@ }%
-        {-3.5ex\@plus -1ex\@minus -.2ex}%
-        {2.3ex\@plus .2ex}%
+        {-5.0ex\@plus -1ex\@minus -.2ex}%
+        {1.25ex\@plus .2ex}%
         {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
 
@@ -269,7 +275,7 @@
     \@startsection{subsection}{2}
         {\z@ }%
         {-3.25ex\@plus -1ex\@minus -.2ex}%
-        {1.5ex\@plus .2ex}%
+        {1.0ex\@plus .2ex}%
         {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
 %    \end{macrocode}
@@ -355,25 +361,20 @@
 %
 %    \begin{macrocode}
 \renewcommand{\@maketitle}{%
-\newpage\null%
-\vskip 2em
+\newpage%
+\renewcommand{\baselinestretch}{1.75}\selectfont%
 \begin{center}
     \let\footnote\thanks%
     {\siicuspabstracts@thirteenpt\bfseries\MakeUppercase{\@title}\par}
-    \vspace{1.2em}
     {\normalfont\siicuspabstracts@thirteenpt\bfseries\lineskip .5em
     \begin{tabular}[t]{c}%
         \@author
     \end{tabular}\par}
     \ifdefined\@collaborators
-        \vspace{1.2em}
         {\normalfont\siicuspabstracts@thirteenpt\bfseries\@collaborators\par}
     \fi
-    \vspace{1.2em}
     {\normalfont\siicuspabstracts@thirteenpt\bfseries\@advisor\par}
-    \vspace{1.2em}
     {\normalfont\siicuspabstracts@thirteenpt\@institution\par}
-    \vspace{1.2em}
     {\normalfont\siicuspabstracts@tenpt\@emailauthor\par}
     \vspace{0.3em}
 \end{center}
