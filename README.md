@@ -1,8 +1,7 @@
 # siicusp-abstracts #
 
-LaTeX package for formatting scientific abstracts according to **Simpósio
-Internacional de Iniciação Científica e Tecnológica da USP (SIICUSP)**
-requirements.
+An **unofficial community LaTeX package** for formatting scientific abstracts
+according to the formatting requirements of the **Simpósio Internacional de Iniciação Científica e Tecnológica da USP (SIICUSP)**.
 
 ## Description ##
 
@@ -13,8 +12,9 @@ header elements, and bibliography formatting.
 
 ## Disclaimer ##
 
-This package is an independent project and has no official affiliation with
-the SIICUSP organizing committee.
+This is an unofficial, independent project. It is not affiliated with,
+endorsed by, sponsored by, or otherwise associated with the SIICUSP organizing
+committee or the University of São Paulo (USP).
 
 It was created to help authors prepare scientific abstracts using the SIICUSP
 formatting guidelines. Before submitting an abstract, users should consult the
