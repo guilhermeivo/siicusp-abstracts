@@ -20,7 +20,7 @@
 %
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{siicusp-abstracts}
-%<package>    [2026/08/05 v1.1.1 SIICUSP Abstracts]
+%<package>    [2026/08/17 v1.1.2 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -176,27 +176,32 @@
 % e deve ser fornecido pelo usuário, utilizando a versão correspondente ao
 % edital vigente do SIICUSP.
 %
+% \changes{v1.1.2}{2026/08/17}{
+%   Corrige a composição do cabeçalho para evitar \texttt{Underfull hbox}.
+% }
+%
 %    \begin{macrocode}
 \setlength{\headheight}{4.6cm}
 \setlength{\headsep}{1.4cm}
 
 \def\ps@headings{%
     \def\@oddhead{%
-        \raisebox{-0.68cm}{%
-            \hspace*{-1cm}%
-            % O usuário deve fornecer este arquivo.
-            \IfFileExists{\siicuspabstracts@logofile}{
-                \includegraphics[height=3.56cm]{\siicuspabstracts@logofile}
-            }{
-                \PackageError
-                    {siicusp-abstracts}
-                    {File '\siicuspabstracts@logofile' not found}
-                    {Download the official SIICUSP logo corresponding to\MessageBreak
-                    the current call for papers and place it in the document\MessageBreak
-                    directory.}
-            }
-            \hfill%
-    }}
+        \makebox[\textwidth][l]{%
+            \raisebox{-0.68cm}{%
+                % O usuário deve fornecer este arquivo.
+                \IfFileExists{\siicuspabstracts@logofile}{%
+                    \includegraphics[height=3.56cm]{\siicuspabstracts@logofile}%
+                }{%
+                    \PackageError
+                        {siicusp-abstracts}
+                        {File '\siicuspabstracts@logofile' not found}
+                        {Download the official SIICUSP logo corresponding to\MessageBreak
+                        the current call for papers and place it in the document\MessageBreak
+                        directory.}%
+                }%
+            }%
+        }%
+    }
     \let\@evenhead\@oddhead
     \def\@oddfoot{}%
     \let\@evenfoot\@oddfoot
