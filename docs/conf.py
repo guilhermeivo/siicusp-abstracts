@@ -15,6 +15,12 @@ html_css_files = [
     'custom.css',
 ]
 
+html_context = {
+    "metatags": """
+        <meta name="generator" content="Sphinx Documentation">
+    """
+}
+
 html_theme_options = {
     "show_powered_by": False,
 }
