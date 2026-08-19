@@ -107,6 +107,11 @@ jobs:
     needs: [build, test]
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v6
         with:
@@ -125,3 +130,12 @@ jobs:
 
       - name: Build documentation
         run: ./scripts/build-docs.sh
+
+      - name: Upload documentation
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/_build/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
