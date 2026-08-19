@@ -334,3 +334,9 @@ TSWLatexianTemp*
 #*Notes.bib
 
 dist/
+
+_build/
+build/
+.sphinx/
+
+.livehtml/

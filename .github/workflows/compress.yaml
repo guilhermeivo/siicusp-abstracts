@@ -102,3 +102,26 @@ jobs:
             dist/siicusp-abstracts-doc.pdf
             dist/siicusp-abstracts-model.pdf
             dist/siicusp-abstracts.sty
+
+  docs:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/download-artifact@v7
+        with:
+          name: siicusp-abstracts-${{ github.ref_name }}
+          path: dist/siicusp-abstracts
+
+      - name: Install Sphinx
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-sphinx
+
+      - name: Build documentation
+        run: ./scripts/build-docs.sh

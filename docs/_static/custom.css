@@ -1,0 +1,15 @@
+div.document {
+    width: 38rem !important;
+}
+
+div.footer {
+    width: 38rem !important;
+}
+
+div.footer {
+  visibility: hidden;
+}
+
+div.footer * {
+  visibility: visible;
+}
