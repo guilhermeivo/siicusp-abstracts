@@ -1,9 +1,9 @@
 div.document {
-    width: min(38rem, 100%);
+  width: min(38rem, 100%);
 }
 
 div.footer {
-    width: min(38rem, 100%);
+  width: min(38rem, 100%);
 }
 
 div.footer {
@@ -12,4 +12,14 @@ div.footer {
 
 div.footer * {
   visibility: visible;
+}
+
+.a4-page {
+  aspect-ratio: 210 / 297; 
+  
+  width: 100%;
+  
+  background: #ffffff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
 }

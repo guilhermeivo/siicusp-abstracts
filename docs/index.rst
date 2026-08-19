@@ -40,9 +40,7 @@ Documentation |flag_br|
 .. raw:: html
 
    <iframe
-       src="siicusp-abstracts-doc.pdf"
-       width="100%"
-       height="700px"
-       style="border: 1px solid #ddd;">
+      class="a4-page"
+      src="siicusp-abstracts-doc.pdf">
    </iframe>
 
