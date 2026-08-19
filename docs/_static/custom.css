@@ -1,9 +1,9 @@
 div.document {
-    width: 38rem !important;
+    width: min(38rem, 100%);
 }
 
 div.footer {
-    width: 38rem !important;
+    width: min(38rem, 100%);
 }
 
 div.footer {
