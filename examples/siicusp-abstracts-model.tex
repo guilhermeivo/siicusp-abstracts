@@ -8,6 +8,8 @@
 \usepackage{todonotes}
 \setuptodonotes{inline}
 
+\usepackage{hyperref}
+
 \title{TÍTULO}
 \author{Autor(es) - Estudante(s) de Graduação}
 \collaborators{Colaborador(es) (máximo 3)}
@@ -15,6 +17,14 @@
 \institution{Faculdade/Universidade}
 \emailauthor{E-mail do primeiro autor}
 \date{\today}
+
+\makeatletter
+\hypersetup{
+    hidelinks,
+    pdfauthor={\@author},
+    pdftitle={\@title}
+}
+\makeatother
 
 \begin{document}
 
