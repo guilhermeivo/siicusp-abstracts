@@ -393,6 +393,22 @@
 }
 %    \end{macrocode}
 %
+%
+% \section{Ajuste gerais}
+%
+% \begin{macro}{\thebibliography}
+%
+% Removido espaços extras entre itens da bibliografia.
+%
+%    \begin{macrocode}
+\let\siicuspabstracts@oldthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \siicuspabstracts@oldthebibliography{#1}
+  \setlength{\parskip}{0pt}
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\captionsbrazilian}
 %
 % Ajusta os textos gerados automaticamente pelo \LaTeX{} para corresponder
