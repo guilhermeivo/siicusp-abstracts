@@ -20,7 +20,7 @@
 %
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{siicusp-abstracts}
-%<package>    [2026/08/20 v1.2.0 SIICUSP Abstracts]
+%<package>    [2026/08/22 v1.2.1 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -306,11 +306,15 @@
 % comportamento padrão do \LaTeX{} é preservado, permitindo quebra automática
 % de linhas.
 %
+% \changes{v1.2.1}{2026/08/22}{
+%   Adicionado centralização do texto de título de figuras e tabelas. 
+% }
+%
 %    \begin{macrocode}
 \long\def\@makecaption#1#2{%
     \vskip\abovecaptionskip
     \begingroup
-        \siicuspabstracts@ninept
+        \centering\siicuspabstracts@ninept
         \sbox\@tempboxa{#1: #2}%
         \ifdim\wd\@tempboxa>\hsize
             #1: #2\par
