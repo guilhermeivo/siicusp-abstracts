@@ -20,7 +20,7 @@
 %
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{siicusp-abstracts}
-%<package>    [2026/08/22 v1.2.1 SIICUSP Abstracts]
+%<package>    [2026/08/22 v1.3.0 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -96,6 +96,7 @@
 
 \newcommand{\siicuspabstracts@logofile}{siicusp-abstracts-logo.png}
 
+\RequirePackage{iftex}
 %</package>
 % \fi
 %
@@ -141,6 +142,26 @@
 % Como a identidade visual do SIICUSP pode ser alterada entre diferentes
 % edições do simpósio, recomenda-se sempre utilizar o logotipo correspondente
 % ao edital vigente.
+%
+% \section{Opções do pacote}
+%
+% A opção \texttt{nohyperref} impede que o pacote carregue o pacote
+% \textsf{hyperref}.
+%
+% \changes{v1.3.0}{2026/08/22}{
+%   Adicionado opção para remover o pacote hyperref adicionado.
+% }
+%
+%    \begin{macrocode}
+\newif\ifsiicuspabstracts@hyperref
+\siicuspabstracts@hyperreftrue
+
+\DeclareOption{nohyperref}{%
+    \siicuspabstracts@hyperreffalse
+}
+
+\ProcessOptions\relax
+%    \end{macrocode}
 %
 % \begin{macro}{geometry (package)}
 %
@@ -252,8 +273,6 @@
 % como alternativa.
 %
 %    \begin{macrocode}
-\RequirePackage{iftex}
-
 \ifPDFTeX
     \RequirePackage[T1]{fontenc}
     \RequirePackage[utf8]{inputenc}
@@ -429,6 +448,15 @@
 }
 %    \end{macrocode}
 % \end{macro}
+%
+%    \iffalse
+\ifsiicuspabstracts@hyperref
+    \RequirePackage{hyperref}
+    \hypersetup{
+        hidelinks,
+        pdfcreator={LaTeX with siicusp-abstracts}
+    }
+\fi
 %
 % \section{Exemplo}
 %
