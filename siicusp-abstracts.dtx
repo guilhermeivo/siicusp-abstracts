@@ -410,7 +410,9 @@
     \ifdefined\@collaborators
         {\normalfont\siicuspabstracts@thirteenpt\bfseries\@collaborators\par}
     \fi
-    {\normalfont\siicuspabstracts@thirteenpt\bfseries\@advisor\par}
+    \ifdefined\@advisor
+        {\normalfont\siicuspabstracts@thirteenpt\bfseries\@advisor\par}
+    \fi
     {\normalfont\siicuspabstracts@thirteenpt\@institution\par}
     {\normalfont\siicuspabstracts@tenpt\@emailauthor\par}
     \vspace{0.3em}
