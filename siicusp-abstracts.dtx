@@ -176,8 +176,9 @@
     a4paper,
     inner=2.6cm,
     outer=2.6cm,
-    top=0cm,
-    bottom=8.4cm,
+    top=4.6cm,
+    bottom=4.2cm,
+    headheight=4.6cm,
     bindingoffset=0cm
 }
 %    \end{macrocode}
@@ -207,13 +208,10 @@
 % }
 %
 %    \begin{macrocode}
-\setlength{\headheight}{4.6cm}
-\setlength{\headsep}{1.4cm}
-
 \def\ps@headings{%
     \def\@oddhead{%
         \makebox[\textwidth][l]{%
-            \raisebox{-0.68cm}{%
+            \raisebox{-0.28cm}{%
                 % O usuário deve fornecer este arquivo.
                 \IfFileExists{\siicuspabstracts@logofile}{%
                     \includegraphics[height=3.56cm]{\siicuspabstracts@logofile}%
@@ -300,7 +298,7 @@
 \renewcommand\section{%
     \@startsection{section}{1}%
         {\z@ }%
-        {-5.0ex\@plus -1ex\@minus -.2ex}%
+        {-5.2ex\@plus -1ex\@minus -.2ex}%
         {1.25ex\@plus .2ex}%
         {\centering\normalfont\siicuspabstracts@thirteenpt\bfseries}%
 }
@@ -400,6 +398,7 @@
 %    \begin{macrocode}
 \renewcommand{\@maketitle}{%
 \newpage%
+\vskip 1.25em%
 \renewcommand{\baselinestretch}{1.75}\selectfont%
 \begin{center}
     \let\footnote\thanks%
