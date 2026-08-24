@@ -20,7 +20,7 @@
 %
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{siicusp-abstracts}
-%<package>    [2026/08/24 v1.3.1 SIICUSP Abstracts]
+%<package>    [2026/08/24 v1.4.0 SIICUSP Abstracts]
 %
 %<*driver>
     \listfiles
@@ -89,14 +89,55 @@
 % \PrintChanges
 %    \tableofcontents
 %
+% \section{Opções do pacote}
+%
+% A opção \texttt{nohyperref} impede que o pacote carregue o pacote
+% \textsf{hyperref}.
+%
+% \changes{v1.3.0}{2026/08/22}{
+%   Adicionado opção para remover o pacote hyperref adicionado.
+% }
+%
+%    \begin{macrocode}
+\newif\ifsiicuspabstracts@hyperref
+\siicuspabstracts@hyperreftrue
+
+\DeclareOption{nohyperref}{%
+    \siicuspabstracts@hyperreffalse
+}
+
+\DeclareOption{pt}{
+    \def\siicuspabstracts@language{brazilian}
+}
+
+\DeclareOption{brazilian}{
+    \def\siicuspabstracts@language{brazilian}
+}
+
+\DeclareOption{en}{
+    \def\siicuspabstracts@language{english}
+}
+
+\DeclareOption{english}{
+    \def\siicuspabstracts@language{english}
+}
+
+\ExecuteOptions{brazilian}
+\ProcessOptions\relax
+%    \end{macrocode}
+%
 % \iffalse
 %<*package>
 \RequirePackage{graphicx}
-\RequirePackage[brazilian]{babel}
+\RequirePackage[\siicuspabstracts@language]{babel}
 
 \newcommand{\siicuspabstracts@logofile}{siicusp-abstracts-logo.png}
 
 \RequirePackage{iftex}
+
+\AtBeginDocument{%
+    \raggedbottom
+}
 %</package>
 % \fi
 %
@@ -142,26 +183,6 @@
 % Como a identidade visual do SIICUSP pode ser alterada entre diferentes
 % edições do simpósio, recomenda-se sempre utilizar o logotipo correspondente
 % ao edital vigente.
-%
-% \section{Opções do pacote}
-%
-% A opção \texttt{nohyperref} impede que o pacote carregue o pacote
-% \textsf{hyperref}.
-%
-% \changes{v1.3.0}{2026/08/22}{
-%   Adicionado opção para remover o pacote hyperref adicionado.
-% }
-%
-%    \begin{macrocode}
-\newif\ifsiicuspabstracts@hyperref
-\siicuspabstracts@hyperreftrue
-
-\DeclareOption{nohyperref}{%
-    \siicuspabstracts@hyperreffalse
-}
-
-\ProcessOptions\relax
-%    \end{macrocode}
 %
 % \begin{macro}{geometry (package)}
 %
